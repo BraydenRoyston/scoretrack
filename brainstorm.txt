@@ -1,0 +1,29 @@
+ScoreTrack App
+
+MVP: 
+- web app to display score and the name of the party on either side
+- user can add an 'event' which updates the score and contains the following information:
+	- game / activity
+	- which side won the game/activity
+	- the number of points given to the game
+	- the date of the game
+- user can view the history of events
+
+FUTURE IDEAS:
+- filter event history based on date, which updates the scores shown
+
+
+SCHEMA
+
+party data
+string: partyId
+int: score
+string: name
+string: profileImageUrl
+timestamp: timeSinceLastWin
+
+event data
+string: activityName
+string: winnerId
+int: pointValue
+timestamp: date
