@@ -7,7 +7,7 @@ import { createGame } from '../../services/firebase';
 import { UserContext } from '../../App';
 import HorizontalContainer from "../templates/HorizontalContainer";
 
-const Body = () => {
+const Body = ({ fetchGames }) => {
     const [gameName, setGameName] = useState("");
     const [opponent, setOpponent] = useState("");
     const User = useContext(UserContext);
@@ -15,6 +15,7 @@ const Body = () => {
     const createHandler = async (e) => {
         void(e);
         await createGame(gameName, User.email, opponent);
+        await fetchGames();
         setGameName("");
     }
 

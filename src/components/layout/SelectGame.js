@@ -7,6 +7,10 @@ import GamesList from './GamesList';
 import HorizontalContainer from "../templates/HorizontalContainer";
 import VerticalContainer from "../templates/VerticalContainer";
 import BodyText from "../templates/BodyText";
+import AddGame from "../ui/AddGame";
+import TextInput from "../templates/TextInput";
+import StyledButton from "../templates/Button";
+import { createGame } from '../../services/firebase';
 
 const SelectGame = ({ onSelect, currentGameId }) => {
     const User = useContext(UserContext);
@@ -31,7 +35,7 @@ const SelectGame = ({ onSelect, currentGameId }) => {
 
     return(
         <SelectGameContainer>
-            <CreateGame />
+            <CreateGame fetchGames={fetchGames}/>
             {games != null ? 
                 games.length ?
                     <GamesList games={games} onSelect={onSelect}/>
@@ -50,6 +54,7 @@ const SelectGameContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     width: 45vw;
+    height: 100%;
 `
 
 export default SelectGame;
