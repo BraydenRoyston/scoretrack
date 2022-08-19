@@ -121,6 +121,8 @@ const GameDisplay = () => {
     useEffect(() => {
         if (gameData && playerList && playerList.length > 0) {
             setLoading(false);
+            setEventWinner(playerList[0].data.name);
+            setEventWinnerId(playerList[0].id);
         }
     }, [playerList])
 
