@@ -1,4 +1,26 @@
-ScoreTrack App
+TODO and notes:
+- figure out the flow
+- add games list for the user and 'current game' view
+-------------------------------------------------------------------------------------------------
+API Specifcation
+
+CREATE METHODS
+createGame(string name, playerObject[] parties);
+createEvent(string gameId, eventObject eventData);
+
+GET METHODS
+getGame(string gameId);
+getPlayers(string gameId);
+getEvents(string gameId);
+
+STREAM METHODS
+streamPlayersData(string gameId, QuerySnapshot snapshot, function error); 
+
+
+DELETE METHODS
+deleteEvent(gameId, eventId);
+-------------------------------------------------------------------------------------------------
+ScoreTrack App, Description & Brainstorm
 
 MVP: 
 - web app to display score and the name of the party on either side
@@ -11,18 +33,27 @@ MVP:
 
 FUTURE IDEAS:
 - filter event history based on date, which updates the scores shown
+- add event types that are saved to that game, the user can then filter these event types to see 
+the score of a specific type of game
 
 
 SCHEMA
+*** firebase wants "large collections of many small documents"
 
-party data
-string: partyId
+game data
+string: id
+string: name
+array of strings: parties
+array of event : events
+
+player data
+string: playerId
 int: score
 string: name
 string: profileImageUrl
 timestamp: timeSinceLastWin
 
-event data
+event object
 string: activityName
 string: winnerId
 int: pointValue
