@@ -17,6 +17,7 @@ const GameDisplay = () => {
     const [playerError, setPlayerError] = useState(false);
     const [eventError, setEventError] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [done, setDone] = useState(false);
 
     const [addEventPage, setAddEventPage] = useState(false);
 
@@ -44,6 +45,10 @@ const GameDisplay = () => {
         } catch (e) {
             throw (e);
         }
+
+        await fetchGame();
+        await fetchPlayers();
+        await fetchEvents();
     }
 
     const handleEventDelete = async (idToDelete) => {
@@ -121,8 +126,11 @@ const GameDisplay = () => {
     useEffect(() => {
         if (gameData && playerList && playerList.length > 0) {
             setLoading(false);
-            setEventWinner(playerList[0].data.name);
-            setEventWinnerId(playerList[0].id);
+            if (!done) {
+                setEventWinner(playerList[0].data.name);
+                setEventWinnerId(playerList[0].id);
+                setDone(true);
+            }
         }
     }, [playerList])
 
@@ -171,16 +179,6 @@ const GameDisplay = () => {
         }
         streamEvents();
     }, [eventList])
-    
-    // const setCreator = () => {
-    //     setEventWinner(gameData.creatorName);
-    //     setEventWinnerId(gameData.creatorId);
-    // }
-
-    // const setOpponent = () => {
-    //     setEventWinner(gameData.opponentName);
-    //     setEventWinnerId(gameData.opponentId);
-    // }
 
     const handleEventWinner = (e) => {
         if (!e.target.checked) {
@@ -265,7 +263,12 @@ const GameDisplay = () => {
                         {eventList ? eventList.map((gameEvent) => {
                             return(
                                 <Event key={gameEvent.id}>
-                                    {gameEvent.data.activityName}: {gameEvent.data.pointValue} points for {gameEvent.data.winnerName.split(" ")[0]}
+                                    <VerticalContainer style={{width: '100%'}}>
+                                        <GameName>{gameEvent.data.activityName}</GameName>
+                                        <HorizontalContainer>
+                                            <Highlight>{gameEvent.data.pointValue} points for {gameEvent.data.winnerName.split(" ")[0]}</Highlight>
+                                        </HorizontalContainer>
+                                    </VerticalContainer>
                                     <Button onClick={() => handleEventDelete(gameEvent.id)}>Delete Event</Button>
                                 </Event>
                             );
@@ -300,6 +303,10 @@ const ScoreBoard = styled.div`
     }
 `;
 
+const GameName = styled.div`
+    font-weight: 600;
+`
+
 const TitlesContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -321,6 +328,11 @@ const NameText = styled.div`
     font-size: 20px;
     margin-left: 10px;
     margin-right: 10px;
+`
+
+const Highlight = styled.div`
+    color: var(--accent);
+    font-weight: 600;
 `
 
 const SectionText = styled.div`
