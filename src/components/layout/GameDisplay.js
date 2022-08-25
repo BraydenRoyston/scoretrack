@@ -21,6 +21,7 @@ const GameDisplay = () => {
     const [gameLoading, setGameLoading] = useState(true);
     const [eventsLoading, setEventsLoading] = useState(true);
     const [addEventLoading, setAddEventLoading] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState("");
     const [done, setDone] = useState(false);
 
     const [addEventPage, setAddEventPage] = useState(false);
@@ -59,11 +60,16 @@ const GameDisplay = () => {
 
     const handleEventDelete = async (idToDelete) => {
         try {
+            setDeleteLoading(idToDelete);
             await deleteEvent(Game, idToDelete);
+            setDeleteLoading("");
         } catch (e) {
             console.log("Delete error");
             throw (e);
         }
+        await fetchGame();
+        await fetchPlayers();
+        await fetchEvents();
     }
 
     const fetchGame = async () => {
@@ -209,7 +215,7 @@ const GameDisplay = () => {
                         <HorizontalContainer>
                             {playerList.map((player, i) => {
                                 return(
-                                    <HorizontalContainer>
+                                    <HorizontalContainer key={player.id}>
                                         <ScoreContainer key={player.id}>
                                             {i == 0 ?<MessageText>{player.data.name.split(" ")[0]}</MessageText> : null}
                                             {i == 1 ?<MessageText>{player.data.name.split(" ")[0]}</MessageText> : null}
@@ -260,7 +266,7 @@ const GameDisplay = () => {
                         <Button
                             onClick={handleEventSubmit}
                         >
-                        {addEventLoading ? <Spinner /> : "Add Event"}
+                        {addEventLoading ? <Spinner /> : "create"}
                         </Button>
                     </VerticalContainer>
                     : null}
@@ -276,7 +282,7 @@ const GameDisplay = () => {
                                             <Highlight>{gameEvent.data.pointValue} points for {gameEvent.data.winnerName.split(" ")[0]}</Highlight>
                                         </HorizontalContainer>
                                     </VerticalContainer>
-                                    <Button onClick={() => handleEventDelete(gameEvent.id)}>Delete Event</Button>
+                                    <Button onClick={() => handleEventDelete(gameEvent.id)}>{deleteLoading == gameEvent.id ? <Spinner /> :"delete"}</Button>
                                 </Event>
                             );
                         })
@@ -346,6 +352,8 @@ const SectionText = styled.div`
     font-size: 20px;
     margin-left: 10px;
     margin-right: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
 
     cursor: pointer;
 

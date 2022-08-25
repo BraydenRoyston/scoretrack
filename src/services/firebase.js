@@ -312,7 +312,7 @@ export const deleteEvent = async (gameId, eventId) => {
         score: oldPoints - pointValue,
     }, {
         merge: true
-    })
+    });
 }
 
 /*

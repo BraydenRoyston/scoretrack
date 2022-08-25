@@ -36,7 +36,7 @@ const GamesList = ({ games, onSelect }) => {
                                     <div>{game.data.opponentName}</div>
                                 </VerticalContainer>
                             </HorizontalContainer>
-                            <StyledButton onClick={() => onSelect(game.id)}>Select</StyledButton>
+                            <StyledButton onClick={() => onSelect(game.id)}>select</StyledButton>
                         </CardContainer>
                     </GameCard>
                 );

@@ -29,7 +29,7 @@ const Body = ({ fetchGames }) => {
                 writeCallback={(e) => setGameName(e.target.value)} 
                 placeholder={"game name..."}
             />
-            <StyledButton onClick={createHandler}>Add Game</StyledButton>
+            <StyledButton onClick={createHandler}>add game</StyledButton>
         </HorizontalContainer>
     );
 }
