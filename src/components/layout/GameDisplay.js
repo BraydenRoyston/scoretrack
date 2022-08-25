@@ -8,15 +8,19 @@ import Button from '../templates/Button';
 import TextInput from '../templates/TextInput';
 import MessageText from '../templates/MessageText';
 import ProfilePicture from '../templates/ProfilePicture';
+import Spinner from '../ui/Spinner';
 
 const GameDisplay = () => {
-    const [gameData, setGameData] = useState(null);
+    // const [gameData, setGameData] = useState(null);
     const [playerList, setPlayerList] = useState(null);
     const [eventList, setEventList] = useState(null);
     const [gameError, setGameError] = useState(false);
     const [playerError, setPlayerError] = useState(false);
     const [eventError, setEventError] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [playersLoading, setPlayersLoading] = useState(true);
+    const [gameLoading, setGameLoading] = useState(true);
+    const [eventsLoading, setEventsLoading] = useState(true);
+    const [addEventLoading, setAddEventLoading] = useState(false);
     const [done, setDone] = useState(false);
 
     const [addEventPage, setAddEventPage] = useState(false);
@@ -26,12 +30,12 @@ const GameDisplay = () => {
     const [eventWinnerId, setEventWinnerId] = useState("");
     const [eventPoints, setEventPoints] = useState("");
 
-    const [deleteId, setDeleteId] = useState("");
 
     const Game = useContext(GameContext);
 
     const handleEventSubmit = async () => {
         try {
+            setAddEventLoading(true);
             await createEvent(
                 Game,
                 {
@@ -42,20 +46,18 @@ const GameDisplay = () => {
                     date: Date.now()
                 }
             )
+            setAddEventLoading(false);
         } catch (e) {
             throw (e);
         }
 
+        
         await fetchGame();
         await fetchPlayers();
         await fetchEvents();
     }
 
     const handleEventDelete = async (idToDelete) => {
-        // console.log(idToDelete);
-        // if (!idToDelete) {
-        //     idToDelete = deleteId;
-        // }
         try {
             await deleteEvent(Game, idToDelete);
         } catch (e) {
@@ -70,7 +72,8 @@ const GameDisplay = () => {
 
             if (gameResult.exists) {
                 setGameError(false);
-                setGameData(gameResult.data());
+                // setGameData(gameResult.data());
+                setGameLoading(false);
             } else {
                 setGameError(true);
             }
@@ -86,6 +89,7 @@ const GameDisplay = () => {
             if (playersResult.length > 0) {
                 setPlayerError(false);
                 setPlayerList(playersResult);
+                setPlayersLoading(false);
             } else {
                 setPlayerError(true);
             }
@@ -101,7 +105,7 @@ const GameDisplay = () => {
             if (eventsResult.length >= 0) {
                 setEventError(false);
                 setEventList(eventsResult);
-                setLoading(false);
+                setEventsLoading(false);
             } else {
                 setPlayerError(true);
             }
@@ -112,9 +116,11 @@ const GameDisplay = () => {
 
     useEffect(() => {
         const handleStartup = async () => {
-            setLoading(true);
+            setGameLoading(true);
             await fetchGame();
+            setPlayersLoading(true);
             await fetchPlayers();
+            setEventsLoading(true);
             await fetchEvents();
         }
         
@@ -124,8 +130,7 @@ const GameDisplay = () => {
     }, [Game]);
 
     useEffect(() => {
-        if (gameData && playerList && playerList.length > 0) {
-            setLoading(false);
+        if (/*gameData && */playerList && playerList.length > 0) {
             if (!done) {
                 setEventWinner(playerList[0].data.name);
                 setEventWinnerId(playerList[0].id);
@@ -134,51 +139,51 @@ const GameDisplay = () => {
         }
     }, [playerList])
 
-    useEffect(() => {
-        const streamPlayers = async () => {
-            // subscribing to datastream for live player data
-            if (playerList) {
-                const unsubscribe = streamPlayerData(Game,
-                    (querySnapshot) => {
-                        const updatedPlayers = 
-                        querySnapshot.docs.map(docSnapshot => {
-                            return({
-                                data: docSnapshot.data(),
-                                id: docSnapshot.id
-                            });
-                        });
-                        setPlayerList(updatedPlayers);
-                    },
-                    (error) => setPlayerError(true)
-                );
-                return unsubscribe;
-            }
-        }
-        streamPlayers();
-    }, [playerList]);
+    // useEffect(() => {
+    //     const streamPlayers = async () => {
+    //         // subscribing to datastream for live player data
+    //         if (playerList) {
+    //             const unsubscribe = streamPlayerData(Game,
+    //                 (querySnapshot) => {
+    //                     const updatedPlayers = 
+    //                     querySnapshot.docs.map(docSnapshot => {
+    //                         return({
+    //                             data: docSnapshot.data(),
+    //                             id: docSnapshot.id
+    //                         });
+    //                     });
+    //                     setPlayerList(updatedPlayers);
+    //                 },
+    //                 (error) => setPlayerError(true)
+    //             );
+    //             return unsubscribe;
+    //         }
+    //     }
+    //     streamPlayers();
+    // }, [playerList]);
 
-    useEffect(() => {
-        const streamEvents = async () => {
-            // subscribing to datastream for live event data
-            if (eventList) {
-                const unsubscribe = streamEventData(Game,
-                    (querySnapshot) => {
-                        const updatedEvents =
-                        querySnapshot.docs.map(docSnapshot => { 
-                            return({
-                                data: docSnapshot.data(), 
-                                id: docSnapshot.id}
-                            );
-                        });
-                        setEventList(updatedEvents);
-                    },
-                    (error) => setEventError(true)
-                );
-                return unsubscribe;
-            }
-        }
-        streamEvents();
-    }, [eventList])
+    // useEffect(() => {
+    //     const streamEvents = async () => {
+    //         // subscribing to datastream for live event data
+    //         if (eventList) {
+    //             const unsubscribe = streamEventData(Game,
+    //                 (querySnapshot) => {
+    //                     const updatedEvents =
+    //                     querySnapshot.docs.map(docSnapshot => { 
+    //                         return({
+    //                             data: docSnapshot.data(), 
+    //                             id: docSnapshot.id}
+    //                         );
+    //                     });
+    //                     setEventList(updatedEvents);
+    //                 },
+    //                 (error) => setEventError(true)
+    //             );
+    //             return unsubscribe;
+    //         }
+    //     }
+    //     streamEvents();
+    // }, [eventList])
 
     const handleEventWinner = (e) => {
         if (!e.target.checked) {
@@ -194,22 +199,23 @@ const GameDisplay = () => {
 
     return(
         <GameDisplayContainer>
+            
             {!Game ? <MessageText>select a game on the left to view the score!</MessageText> :
                 <VerticalContainer>
                     <ScoreBoard>
-                        {loading ?
-                        <div>loading...</div>
+                        {playersLoading ?
+                        <Spinner />
                         :
                         <HorizontalContainer>
                             {playerList.map((player, i) => {
                                 return(
                                     <HorizontalContainer>
-                                        {i == 0 ?<MessageText>{player.data.name.split(" ")[0]}</MessageText> : null}
                                         <ScoreContainer key={player.id}>
+                                            {i == 0 ?<MessageText>{player.data.name.split(" ")[0]}</MessageText> : null}
+                                            {i == 1 ?<MessageText>{player.data.name.split(" ")[0]}</MessageText> : null}
                                             <ProfilePicture src={player.data.profileImageUrl} />
                                             <ScoreText>{player.data.score}</ScoreText>
                                         </ScoreContainer>
-                                        {i == 1 ?<MessageText>{player.data.name.split(" ")[0]}</MessageText> : null}
                                     </HorizontalContainer>
                                 );
                             })}
@@ -235,32 +241,33 @@ const GameDisplay = () => {
                     {addEventPage ? 
                     <VerticalContainer>
                         <SectionText select={false}>event info...</SectionText>
-                        <TextInput writeCallback={(e) => setEventName(e.target.value)} placeholder={"event name..."}/>
-                        <TextInput writeCallback={(e) => setEventPoints(e.target.value)} placeholder={"number of points..."}/>
-                        {loading ? <div>loading</div> :
-                            <VerticalContainer>
-                                <SectionText select={false}>who won?</SectionText>
-                                <HorizontalContainer>
-                                    <NameText>{playerList[0].data.name.split(" ")[0]}</NameText>
-                                    <CheckBoxWrapper>
-                                        <CheckBox id="checkbox" type="checkbox" onClick={handleEventWinner}/>
-                                        <CheckBoxLabel htmlFor="checkbox" />
-                                    </CheckBoxWrapper>
-                                    <NameText>{playerList[1].data.name.split(" ")[0]}</NameText>
-                                </HorizontalContainer>
-                            </VerticalContainer>
-                        }
+                        <HorizontalContainer>
+                            <TextInput writeCallback={(e) => setEventName(e.target.value)} placeholder={"event name..."}/>
+                            <TextInput writeCallback={(e) => setEventPoints(e.target.value)} placeholder={"number of points..."}/>
+                        </HorizontalContainer>
+                        <VerticalContainer>
+                            <SectionText select={false}>who won?</SectionText>
+                            {/* <SectionText>{eventWinnerId}, {eventWinner}</SectionText> */}
+                            <HorizontalContainer>
+                                <NameText>{playerList[0].data.name.split(" ")[0]}</NameText>
+                                <CheckBoxWrapper>
+                                    <CheckBox id="checkbox" type="checkbox" onClick={handleEventWinner}/>
+                                    <CheckBoxLabel htmlFor="checkbox" />
+                                </CheckBoxWrapper>
+                                <NameText>{playerList[1].data.name.split(" ")[0]}</NameText>
+                            </HorizontalContainer>
+                        </VerticalContainer>
                         <Button
                             onClick={handleEventSubmit}
                         >
-                        Add event
+                        {addEventLoading ? <Spinner /> : "Add Event"}
                         </Button>
                     </VerticalContainer>
                     : null}
 
                     {!addEventPage ?
                     <EventListContainer>
-                        {eventList ? eventList.map((gameEvent) => {
+                        {!eventsLoading ? eventList.map((gameEvent) => {
                             return(
                                 <Event key={gameEvent.id}>
                                     <VerticalContainer style={{width: '100%'}}>
@@ -273,7 +280,7 @@ const GameDisplay = () => {
                                 </Event>
                             );
                         })
-                        : null}
+                        : <Spinner />}
                     </EventListContainer>
                     : null }
                 </VerticalContainer>

@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     font-family: 'Quicksand';
     font-weight: 600;
     font-size: 15px;

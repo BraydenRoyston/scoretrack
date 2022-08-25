@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { UserContext, GameContext } from "../../App";
 import ProfilePicture from "../templates/ProfilePicture";
 import StyledButton from "../templates/Button";
+import HorizontalContainer from "../templates/HorizontalContainer";
+import VerticalContainer from "../templates/VerticalContainer";
 
 const GamesList = ({ games, onSelect }) => {
     const User = useContext(UserContext);
@@ -12,17 +14,30 @@ const GamesList = ({ games, onSelect }) => {
             {games.map((game) => {
                 let versusId = game.data.opponentId;
                 let versus = game.data.opponentName.split(' ')[0];
-                let picUrl = game.data.opponentProfileImageUrl;
+                let opponentPicUrl = game.data.opponentProfileImageUrl;
+                let creatorPicUrl = game.data.creatorProfileImageUrl;
                 if (game.data.opponentId == User.uid) {
                     versusId = game.data.creatorId;
                     versus = game.data.creatorName.split(' ')[0];
-                    picUrl = game.data.creatorProfileImageUrl;
+                    // picUrl = game.data.creatorProfileImageUrl;
                 }
                 return(
                     <GameCard key={game.id} currentGameId={Game}>
-                        <ProfilePicture src={picUrl} />
-                        <GameText>"{game.data.name}" <Vs> vs </Vs> {versus}</GameText>
-                        <StyledButton onClick={() => onSelect(game.id)}>Select this game</StyledButton>
+                        <GameText>{game.data.name}</GameText>
+                        <CardContainer>
+                            <HorizontalContainer>
+                                <VerticalContainer>
+                                    <ProfilePicture src={creatorPicUrl} style={{height: "50px", width: "50px"}}/>
+                                    <div>{game.data.creatorName}</div>
+                                </VerticalContainer>
+                                <Vs> vs </Vs>
+                                <VerticalContainer>
+                                    <ProfilePicture src={opponentPicUrl} style={{height: "50px", width: "50px"}}/>
+                                    <div>{game.data.opponentName}</div>
+                                </VerticalContainer>
+                            </HorizontalContainer>
+                            <StyledButton onClick={() => onSelect(game.id)}>Select</StyledButton>
+                        </CardContainer>
                     </GameCard>
                 );
             })}
@@ -36,9 +51,18 @@ const GamesContainer = styled.div`
     overflow: scroll;
 `
 
-const GameCard = styled.div`
+const CardContainer = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    align-items: space-between;
+
+    width: 100%;
+`
+
+const GameCard = styled.div`
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 10px;
@@ -64,8 +88,9 @@ const GameText = styled.div`
     align-items: center;
     margin-left: 10px;
     margin-right: 10px;
+    margin-bottom: 10px;
 
-    font-weight: 500;
+    font-weight: 700;
 `
 
 const Vs = styled.div`
