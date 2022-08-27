@@ -75,7 +75,7 @@ const NameText = styled.div`
 const ScoreText = styled.div`
     font-weight: 700;
     font-size: 40px;
-    color: var(--accent);
+    // color: var(--accent);
 `
 
 export default ScoreBoard;

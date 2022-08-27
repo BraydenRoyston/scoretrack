@@ -53,7 +53,7 @@ const App = () => {
         </GameContext.Provider>
         </UserContext.Provider>
       </AppContainer>
-      <BottomText>Version 1.1 - Created with ❤️ + ☕ by Brayden Royston, Copyright 2022</BottomText>
+      <BottomText>Version 1.3 - Created with ❤️ + ☕ by Brayden Royston, Copyright 2022</BottomText>
     </OuterContainer>
     
   );

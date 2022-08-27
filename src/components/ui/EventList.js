@@ -31,7 +31,7 @@ const GameName = styled.div`
 `
 
 const Highlight = styled.div`
-    color: var(--accent);
+    // color: var(--accent);
     font-weight: 600;
 `
 
