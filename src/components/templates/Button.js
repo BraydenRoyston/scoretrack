@@ -28,7 +28,10 @@ const StyledButton = styled.button`
         // font-weight: 500;
     }
     
-    // ${props => props.display ? "display: none;" : ""}
+    @media (max-width: 768px) {
+        font-size: 12.5px;
+        padding: 10px;
+    }
 `
 
 export default StyledButton;

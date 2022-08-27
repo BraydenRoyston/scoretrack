@@ -34,27 +34,53 @@ const SelectGame = ({ onSelect, currentGameId }) => {
     }, [User])
 
     return(
-        <SelectGameContainer>
-            <CreateGame fetchGames={fetchGames}/>
-            {games != null ? 
-                games.length ?
-                    <GamesList games={games} onSelect={onSelect}/>
+        <VerticalContainer>
+            <TitleText>add or select a game below</TitleText>
+            <GlassContainer>
+                <CreateGame fetchGames={fetchGames}/>
+                {games != null ? 
+                    games.length ?
+                        <GamesList games={games} onSelect={onSelect}/>
+                    :
+                        <BodyText>looks like you have no games yet... add one above!</BodyText>
                 :
-                    <BodyText>looks like you have no games yet... add one above!</BodyText>
-            :
-                null
-            }
-        </SelectGameContainer>
+                    null
+                }
+            </GlassContainer>
+        </VerticalContainer>
+        
     );
 }
 
-const SelectGameContainer = styled.div`
+const TitleText = styled.div`
+    font-size: 20px;
+`
+
+const GlassContainer = styled.div`
+    margin-top: 15vh;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 45vw;
-    height: 100%;
+
+
+    width: 40vw;
+    @media (max-width: 768px) {
+        width: 90vw;
+    }
+    margin: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
 `
 
 export default SelectGame;

@@ -1,18 +1,8 @@
-import styled from "styled-components";
-
-import MessageText from "../templates/MessageText";
-
-const Login = () => {
-  return (
-    <GlassContainer>
-      <MessageText>hello, sign in above to get started :)</MessageText>
-    </GlassContainer>
-  );
-}
+import styled from 'styled-components';
 
 const GlassContainer = styled.div`
-    width: 90vw;
-    height: 25vh;
+    width: 40vw;
+    height: 65vh;
     @media (max-width: 768px) {
         width: 90vw;
     }
@@ -20,7 +10,7 @@ const GlassContainer = styled.div`
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justfiy-content: center;
     align-items: center;
 
     backdrop-filter: blur(16px) saturate(180%);
@@ -30,4 +20,4 @@ const GlassContainer = styled.div`
     border: 1px solid rgba(209, 213, 219, 0.3);
 `
 
-export default Login;
+export default GlassContainer;

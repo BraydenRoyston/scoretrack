@@ -24,7 +24,6 @@ const NavBar = ({ onLogin, onLogout }) => {
 }
 
 const Container = styled.div`
-    // background: white;
     width: 100vw;
     height: 15vh;
 
@@ -32,8 +31,10 @@ const Container = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    @media (max-width: 768px) {
+        // flex-direction: column;
+    }
 
-    // border-bottom: 3px solid var(--black);
 
     position: absolute;
     top: 0;
@@ -41,64 +42,45 @@ const Container = styled.div`
 `
 
 const Inner = styled.div`
-width: 100%;
+    width: 100%;
 
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-
-`
-
-const NullButton = styled.div`
-    background: transparent;
-    // border: none !important;
-    // font-size:0;
-    color: transparent;
-
-    font-family: 'Quicksand';
-    font-size: 15px;
-
-    // background: black;
-    border-radius: 15px;
-    padding: 15px;
-    color: var(--bg);
-    border: 1px solid rgba(0, 0, 0, 0);
-    margin: 10px;
-
-    transition: 1s ease all;
-    
-    &:hover {
-        border: 1px solid rgba(0, 0, 0, 0);
-        cursor: pointer;
-        color: var(--accent);
-        // font-weight: 500;
-    }
-    
-    // ${props => props.display ? "display: none;" : ""}
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 `
 
 const Panda = styled.img`
     height: 70px;
+    @media (max-width: 768px) {
+        display: none;
+    }
 `
 
 const Title = styled.div`
     font-weight: 300;
     font-size: 75px;
-    line-height: 15vh;
-    vertical-align: middle;
+    // line-height: 15vh;
+    text-align: center;
+    // vertical-align: middle;
     // width: 50vw;
 
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    @media (max-width: 768px) {
+        font-size: 50px;
+    }
 `
 
 const Vs = styled.span`
     font-weight: 600;
     color: var(--accent);
     font-size: 75px;
+    @media (max-width: 768px) {
+        font-size: 50px;
+    }
 `
 
 

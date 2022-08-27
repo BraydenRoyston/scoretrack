@@ -22,9 +22,9 @@ const GamesList = ({ games, onSelect }) => {
                     // picUrl = game.data.creatorProfileImageUrl;
                 }
                 return(
-                    <GameCard key={game.id} currentGameId={Game}>
-                        <GameText>{game.data.name}</GameText>
+                    <GameCard key={game.id} currentGameId={Game} myGameId={game.id}>
                         <CardContainer>
+                            <GameText>{game.data.name}</GameText>
                             <HorizontalContainer>
                                 <VerticalContainer>
                                     <ProfilePicture src={creatorPicUrl} style={{height: "50px", width: "50px"}}/>
@@ -36,8 +36,8 @@ const GamesList = ({ games, onSelect }) => {
                                     <div>{game.data.opponentName}</div>
                                 </VerticalContainer>
                             </HorizontalContainer>
-                            <StyledButton onClick={() => onSelect(game.id)}>select</StyledButton>
                         </CardContainer>
+                        <StyledButton onClick={() => onSelect(game.id)}>select</StyledButton>
                     </GameCard>
                 );
             })}
@@ -53,7 +53,7 @@ const GamesContainer = styled.div`
 
 const CardContainer = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     align-items: space-between;
 
@@ -62,7 +62,7 @@ const CardContainer = styled.div`
 
 const GameCard = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     margin: 10px;
@@ -78,7 +78,7 @@ const GameCard = styled.div`
         border: 3px solid var(--accent);
     }
 
-    border: ${props => props.currentGameId != props.key ? "3px solid var(--accent);" : "3px solid var(--black);"}
+    border: ${props => (props.currentGameId == props.myGameId) ? "3px solid var(--accent);" : "3px solid var(--black);"}
 `
 
 const GameText = styled.div`
