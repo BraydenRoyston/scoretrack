@@ -1,20 +1,26 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import { auth, signInWithGoogle, logout, createGame } from "./services/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import styled from 'styled-components';
 import img from '../src/assets/nice1.jpeg';
-
+import { getGame } from './services/firebase';
+import { CSSTransition } from 'react-transition-group';
 import GameDisplay from './components/layout/GameDisplay';
 import LoginPage from './components/layout/LoginPage';
 import NavBar from './components/ui/NavBar';
 import VerticalContainer from './components/templates/VerticalContainer';
 import SelectGame from './components/layout/SelectGame';
 
+
 export const UserContext = createContext();
 export const GameContext = createContext();
 const App = () => {
   const [user, loading, error] = useAuthState(auth);
+  const [game, setGame] = useState(null);
   const [currentGameId, setCurrentGameId] = useState(null);
+  const [gameLoading, setGameLoading] = useState(false);
+  const [gameError, setGameError] = useState(false);
+
 
   const handleLogin = () => {
     signInWithGoogle();
@@ -27,33 +33,72 @@ const App = () => {
     console.log(gameId);
     if (gameId == currentGameId) {
       setCurrentGameId(null);
+      setGame(null);
     } else {
+      setGameLoading(true);
       setCurrentGameId(gameId);
     }
   }
 
+  const fetchGame = async () => {
+      try {
+          const gameResult = await getGame(currentGameId);
+
+          if (gameResult.exists) {
+              setGameError(false);
+              setGame(gameResult.data());
+              setGameLoading(false);
+          } else {
+              setGameError(true);
+          }
+      } catch (e) {
+          throw (e);
+      }
+  }
+
+  useEffect(() => {
+    if (currentGameId) {
+      fetchGame();
+    }
+  }, [currentGameId]);
+
   const resetGame = () => {
     setCurrentGameId(null);
+    setGame(null);
   }
 
   return (
-    <OuterContainer>
+    <OuterContainer transitionName={"content"}>
       <AppContainer>
         <UserContext.Provider value={user}>
         <GameContext.Provider value={currentGameId}>
-          <NavBar onLogin={handleLogin} onLogout={handleLogout}/>
+          <NavBar onLogin={handleLogin} onLogout={handleLogout} game={game}/>
             {user ? user.email ?
-                currentGameId ?
-                  <GameDisplay handleBack={resetGame}/>
-                : 
-                  <SelectGame onSelect={handleGameSelect}/>
-              : 
+              <div>
+                  <CSSTransition
+                      in={game}
+                      timeout={300}
+                      classNames="content"
+                      unmountOnExit
+                  >
+                    <GameDisplay handleBack={resetGame}/>
+                  </CSSTransition>
+                  <CSSTransition
+                    in={!game}
+                    timeout={300}
+                    classNames="content"
+                    unmountOnExit
+                  >
+                    <SelectGame onSelect={handleGameSelect}/>
+                  </CSSTransition>
+                </div>
+              :
             <LoginPage onLogin={handleLogin} onLogout={handleLogout}/>
             : <LoginPage onLogin={handleLogin} onLogout={handleLogout}/>}
         </GameContext.Provider>
         </UserContext.Provider>
       </AppContainer>
-      <BottomText>Version 1.3 - Created with ❤️ + ☕ by Brayden Royston, Copyright 2022</BottomText>
+      <BottomText>Version 1.4 - Created with ❤️ + ☕ by Brayden Royston, Copyright 2022</BottomText>
     </OuterContainer>
     
   );

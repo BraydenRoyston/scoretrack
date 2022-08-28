@@ -72,10 +72,25 @@ const AddEvent = ({ addEventLoading, handleEventSubmit, playersLoading, playerLi
         );
     }
     else {
-        return <Spinner />
+        return (
+            <GlassContainer>
+                <SpinnerContainer>
+                    <Spinner />
+                </SpinnerContainer> 
+            </GlassContainer>
+        );
     }
 }
 
+const SpinnerContainer = styled.div`
+    width: 40vw;
+    height: 40vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
 
 const GlassContainer = styled.div`
     width: 40vw;

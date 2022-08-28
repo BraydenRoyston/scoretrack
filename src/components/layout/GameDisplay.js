@@ -128,7 +128,7 @@ const GameDisplay = ({ handleBack }) => {
     }, [Game]);   
 
     return(
-        <GameDisplayContainer>
+        <GameDisplayContainer transitionName={"content"}>
             <GameNav style={{ justifyContent: 'space-between', width: '100%' }}>
                 <BackToGames onClick={handleBack}>
                     <BackButton>{"<"}</BackButton>
@@ -170,6 +170,25 @@ const GameDisplayContainer = styled.div`
     @media (max-width: 768px) {
         margin-top: 30vh;
     }
+
+    &.${props => props.transitionName}-enter {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      &.${props => props.transitionName}-enter-active {
+          opacity: 1;
+          transform: translateX(0);
+          transition: opacity 300ms, transform 300ms;
+      }
+      &.${props => props.transitionName}-exit {
+          position: absolute;
+          opacity: 1;
+      }
+      &.${props => props.transitionName}-exit-active {
+          opacity: 0;
+          transform: scale(0.9);
+          transition: opacity 0ms, transform 0ms;
+      }
 `
 
 const GameNav = styled.div`

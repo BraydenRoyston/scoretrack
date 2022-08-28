@@ -8,7 +8,9 @@ const ScoreBoard = ({ playersLoading, playerList }) => {
     return(
         <GlassContainer>
             {playersLoading ?
-            <Spinner />
+            <SpinnerContainer>
+                <Spinner />
+            </SpinnerContainer>
             :
             <ScoreContainer>
                 {playerList.map((player, i) => {
@@ -26,6 +28,16 @@ const ScoreBoard = ({ playersLoading, playerList }) => {
         </GlassContainer>
     );
 }
+
+const SpinnerContainer = styled.div`
+    width: 40vw;
+    height: 25vh;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
 
 const GlassContainer = styled.div`
     width: 40vw;

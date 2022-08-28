@@ -11,6 +11,7 @@ import AddGame from "../ui/AddGame";
 import TextInput from "../templates/TextInput";
 import StyledButton from "../templates/Button";
 import { createGame } from '../../services/firebase';
+import Spinner from "../ui/Spinner";
 
 const SelectGame = ({ onSelect, currentGameId }) => {
     const User = useContext(UserContext);
@@ -34,7 +35,7 @@ const SelectGame = ({ onSelect, currentGameId }) => {
     }, [User])
 
     return(
-        <VerticalContainer>
+        <SelectContainer transitionName={'content'}>
             <TitleText>add or select a game below</TitleText>
             <GlassContainer>
                 <CreateGame fetchGames={fetchGames}/>
@@ -44,16 +45,54 @@ const SelectGame = ({ onSelect, currentGameId }) => {
                     :
                         <BodyText>looks like you have no games yet... add one above!</BodyText>
                 :
-                    null
+                    <SpinnerContainer>
+                        <Spinner />
+                    </SpinnerContainer>
                 }
             </GlassContainer>
-        </VerticalContainer>
+        </SelectContainer>
         
     );
 }
 
+const SelectContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &.${props => props.transitionName}-enter {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    &.${props => props.transitionName}-enter-active {
+        opacity: 1;
+        transform: translateX(0);
+        transition: opacity 300ms, transform 300ms;
+    }
+    &.${props => props.transitionName}-exit {
+        position: absolute;
+        opacity: 1;
+    }
+    &.${props => props.transitionName}-exit-active {
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 0ms, transform 0ms;
+    }
+`
+
 const TitleText = styled.div`
     font-size: 20px;
+`
+
+const SpinnerContainer = styled.div`
+    height: 50vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 
 const GlassContainer = styled.div`

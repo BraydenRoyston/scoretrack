@@ -5,6 +5,15 @@ import Button from '../templates/Button';
 import Spinner from '../ui/Spinner';
 
 const EventList = ({ eventsLoading, eventList, handleEventDelete, deleteLoading }) => {
+    if (eventsLoading) {
+        return(
+            <GlassContainer>
+                <SpinnerContainer>
+                    <Spinner />
+                </SpinnerContainer>
+            </GlassContainer>
+        );
+    }
     return(
         <GlassContainer>
             {!eventsLoading ? eventList.length == 0 ? <SectionText>no events yet, add one by clicking "add a new event"!</SectionText>
@@ -25,6 +34,16 @@ const EventList = ({ eventsLoading, eventList, handleEventDelete, deleteLoading 
         </GlassContainer>
     );
 }
+
+const SpinnerContainer = styled.div`
+    width: 40vw;
+    height: calc(65vh + 20px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
 
 const GameName = styled.div`
     font-weight: 600;
