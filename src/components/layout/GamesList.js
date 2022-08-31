@@ -60,6 +60,9 @@ const GamesList = ({ games, onSelect }) => {
 
 const GamesContainer = styled.div`
     height: 50vh;
+    @media (max-width: 768px) {
+        height: 42vh;
+    }
 
     overflow: scroll;
 `

@@ -57,6 +57,9 @@ const SelectGame = ({ onSelect, currentGameId }) => {
 
 const SelectContainer = styled.div`
     margin-top: 10vh;
+    @media (max-width: 768px) {
+        margin-top: 15vh;
+    }
 
     display: flex;
     flex-direction: column;
