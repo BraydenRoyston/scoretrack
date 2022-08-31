@@ -20,7 +20,7 @@ const Body = ({ fetchGames }) => {
     }
 
     return(
-        <HorizontalContainer style={{ height: '15vh' }}>
+        <HorizontalContainer>
             <TextInput 
                 writeCallback={(e) => setOpponent(e.target.value)} 
                 placeholder={"opponent's email..."}

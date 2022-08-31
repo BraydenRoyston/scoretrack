@@ -96,7 +96,7 @@ const GlassContainer = styled.div`
     width: 40vw;
     height: 40vh;
     @media (max-width: 768px) {
-        width: 90vw;
+        width: 75vw;
     }
     margin: 10px;
 
@@ -113,13 +113,13 @@ const GlassContainer = styled.div`
 `
 
 const NameText = styled.div`
-    font-size: 20px;
+    font-size: var(--fs-small);
     margin-left: 10px;
     margin-right: 10px;
 `
 
 const SectionText = styled.div`
-    font-size: 20px;
+    font-size: var(--fs-small);
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 10px;

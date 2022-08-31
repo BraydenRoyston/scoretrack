@@ -43,7 +43,7 @@ const GlassContainer = styled.div`
     width: 40vw;
     height: 25vh;
     @media (max-width: 768px) {
-        width: 90vw;
+        width: 75vw;
     }
     margin: 10px;
 
@@ -77,16 +77,16 @@ const PlayerContainer = styled.div`
 `
 
 const NameText = styled.div`
-    font-size: 40px;
+    font-size: var(--fs-medium);
     font-weight: 600;
     @media (max-width: 768px) {
-        font-size: 25px;
+        font-size: var(--fs-small);
     }
 `
 
 const ScoreText = styled.div`
     font-weight: 700;
-    font-size: 40px;
+    font-size: var(--fs-medium);
     // color: var(--accent);
 `
 

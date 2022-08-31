@@ -8,7 +8,7 @@ const StyledButton = styled.button`
 
     font-family: 'Quicksand';
     font-weight: 600;
-    font-size: 15px;
+    font-size: var(--fs-extra-small);
 
     width: 125px;
 
@@ -29,7 +29,7 @@ const StyledButton = styled.button`
     }
     
     @media (max-width: 768px) {
-        font-size: 12.5px;
+        font-size: var(--fs-extra-small);
         padding: 10px;
     }
 `

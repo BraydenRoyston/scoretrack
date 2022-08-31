@@ -98,7 +98,7 @@ const App = () => {
         </GameContext.Provider>
         </UserContext.Provider>
       </AppContainer>
-      <BottomText>Version 1.4 - Created with ❤️ + ☕ by Brayden Royston, Copyright 2022</BottomText>
+      <BottomText>Version 1.5 - Created with ❤️ + ☕ by Brayden Royston, Copyright 2022</BottomText>
     </OuterContainer>
     
   );
@@ -131,12 +131,12 @@ const AppContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  // justify-content: flex-start;
   justify-content: center;
   align-items: center;
   @media (max-width: 768px) {
       flex-direction: column;
       min-height: 100vh;
+      justify-content: flex-start;
   }
 
   position: relative;
@@ -145,7 +145,7 @@ const AppContainer = styled.div`
 `
 
 const BottomText = styled.div`
-  font-size: 15px;
+  font-size: var(--fs-extra-small);
   text-align: center;
   color: var(--accent);
 `

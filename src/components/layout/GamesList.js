@@ -12,30 +12,43 @@ const GamesList = ({ games, onSelect }) => {
     return(
         <GamesContainer>
             {games.map((game) => {
-                let versusId = game.data.opponentId;
-                let versus = game.data.opponentName.split(' ')[0];
                 let opponentPicUrl = game.data.opponentProfileImageUrl;
+                let opponentName = game.data.opponentName;
                 let creatorPicUrl = game.data.creatorProfileImageUrl;
+                let creatorName = game.data.creatorName;
                 if (game.data.opponentId == User.uid) {
-                    versusId = game.data.creatorId;
-                    versus = game.data.creatorName.split(' ')[0];
+
+                    let tempUrl = opponentPicUrl
+                    let tempName = opponentName
+                    opponentPicUrl = creatorPicUrl
+                    opponentName = creatorName
+                    creatorPicUrl = tempUrl
+                    creatorName = tempName
                     // picUrl = game.data.creatorProfileImageUrl;
                 }
                 return(
                     <GameCard key={game.id} currentGameId={Game} myGameId={game.id}>
                         <CardContainer>
                             <GameText>{game.data.name}</GameText>
-                            <HorizontalContainer>
-                                <VerticalContainer>
-                                    <ProfilePicture src={creatorPicUrl} style={{height: "50px", width: "50px"}}/>
-                                    <div>{game.data.creatorName}</div>
-                                </VerticalContainer>
-                                <Vs> vs </Vs>
+                            <BigDisplay>
+                                <HorizontalContainer>
+                                    <VerticalContainer>
+                                        <ProfilePicture src={creatorPicUrl} style={{height: "50px", width: "50px"}}/>
+                                        <div>{creatorName}</div>
+                                    </VerticalContainer>
+                                    <Vs> vs </Vs>
+                                    <VerticalContainer>
+                                        <ProfilePicture src={opponentPicUrl} style={{height: "50px", width: "50px"}}/>
+                                        <div>{opponentName}</div>
+                                    </VerticalContainer>
+                                </HorizontalContainer>
+                            </BigDisplay>
+                            <LittleDisplay>
                                 <VerticalContainer>
                                     <ProfilePicture src={opponentPicUrl} style={{height: "50px", width: "50px"}}/>
-                                    <div>{game.data.opponentName}</div>
+                                    <div>{opponentName}</div>
                                 </VerticalContainer>
-                            </HorizontalContainer>
+                            </LittleDisplay>
                         </CardContainer>
                         <StyledButton onClick={() => onSelect(game.id)}>select</StyledButton>
                     </GameCard>
@@ -49,6 +62,18 @@ const GamesContainer = styled.div`
     height: 50vh;
 
     overflow: scroll;
+`
+
+const BigDisplay = styled.div`
+    @media (max-width: 768px) {
+        display: none;
+    }
+`
+
+const LittleDisplay = styled.div`
+    @media (min-width: 768px) {
+        display: none;
+    }
 `
 
 const CardContainer = styled.div`
@@ -67,6 +92,10 @@ const GameCard = styled.div`
     align-items: center;
     margin: 10px;
     width: 35vw;
+    @media (max-width: 768px) {
+        width: 75vw;
+    }
+
 
     
     padding: 15px;

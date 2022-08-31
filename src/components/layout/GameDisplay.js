@@ -158,17 +158,19 @@ const GameDisplay = ({ handleBack }) => {
 }
 
 const GameDisplayContainer = styled.div`
-    margin-top: 15vh;
+    margin-top: 10vh;
+
+    // overflow: scroll;
 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     // width: 45vw;
-    height: 100%;
+    // height: 100%;
 
     @media (max-width: 768px) {
-        margin-top: 30vh;
+        margin-top: 15vh;
     }
 
     &.${props => props.transitionName}-enter {
@@ -196,6 +198,10 @@ const GameNav = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 `
 
 const BackToGames = styled.div`
@@ -205,15 +211,6 @@ const BackToGames = styled.div`
     align-items: center;
 
     cursor: pointer;
-
-    // &:hover button {
-    //     border: 1px solid var(--accent);
-    //     color: var(--accent);
-    // }
-    // &:hover div {
-    //     color: var(--accent);
-    //     border-bottom: 1px solid var(--accent);
-    // }
 `
 
 const BackButton = styled.button`
@@ -224,7 +221,7 @@ const BackButton = styled.button`
 
     font-family: 'Quicksand';
     font-weight: 600;
-    font-size: 15px;
+    font-size: var(--fs-extra-small);
 
     width: 30px;
     height: 30px;
@@ -238,33 +235,26 @@ const BackButton = styled.button`
 
     transition: 1s ease all;
     
-    // &:hover {
-    //     border: 1px solid var(--accent);
-    //     cursor: pointer;
-    //     color: var(--accent);
-    //     // font-weight: 500;
-    // }
-    
     cursor: pointer;
 
     @media (max-width: 768px) {
-        font-size: 12.5px;
+        font-size: var(--fs-extra-small);
         padding: 10px;
     }
 `
 
 const BackText = styled.div`
-    font-size: 20px;
+    font-size: var(--fs-extra-small);
     border-bottom: 1px solid var(--black);
     transition: 1s ease all;
 `
 
 const TitleText = styled.div`
-    font-size: 20px;
+    font-size: var(--fs-extra-small);
 `
 
 const SectionText = styled.div`
-    font-size: 20px;
+    font-size: var(--fs-small);
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 10px;

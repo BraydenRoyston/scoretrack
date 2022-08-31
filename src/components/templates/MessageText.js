@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const MessageText = styled.div`
-    font-size: 40px;
+    font-size: var(--fs-medium);
     font-weight: 600;
     text-align: center;
 `;

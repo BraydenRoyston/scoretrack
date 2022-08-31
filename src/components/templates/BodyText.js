@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const MessageText = styled.div`
-    font-size: 20px;
+    font-size: var(--fs-small);
 `;
 
 export default MessageText;

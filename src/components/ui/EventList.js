@@ -55,7 +55,7 @@ const Highlight = styled.div`
 `
 
 const SectionText = styled.div`
-    font-size: 20px;
+    font-size: var(--fs-small);
     font-weight: 600;
 
     width: 35vw;
@@ -104,6 +104,10 @@ const GlassContainer = styled.div`
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 12px;
     border: 1px solid rgba(209, 213, 219, 0.3);
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `
 
 export default EventList;

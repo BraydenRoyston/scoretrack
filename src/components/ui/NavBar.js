@@ -40,7 +40,7 @@ const NavBar = ({ onLogin, onLogout, game }) => {
             <Inner>
                 {User ? User.email ? 
                     <HorizontalContainer>
-                        {User ? "hi, " + User.displayName.split(' ')[0].toLowerCase() : ""}
+                        <Message>{User ? "hi, " + User.displayName.split(' ')[0].toLowerCase() : ""}</Message>
                         <StyledButton onClick={onLogout}>sign out</StyledButton>
                     </HorizontalContainer>
                 : <StyledButton onClick={onLogin}>sign in</StyledButton> : <StyledButton onClick={onLogin}>sign in</StyledButton>}
@@ -65,6 +65,12 @@ const Container = styled.div`
     position: absolute;
     top: 0;
     left: 0;
+`
+
+const Message = styled.div`
+    @media (max-width: 768px) {
+        display: none;
+    }
 `
 
 const Inner = styled.div`
@@ -104,7 +110,7 @@ const Panda = styled.img`
 
 const Title = styled.div`
     font-weight: 300;
-    font-size: 55px;
+    font-size: var(--fs-large);
     // line-height: 15vh;
     text-align: center;
     // vertical-align: middle;
@@ -115,16 +121,16 @@ const Title = styled.div`
     justify-content: space-around;
     align-items: center;
     @media (max-width: 768px) {
-        font-size: 50px;
+        font-size: var(--fs-large);
     }
 `
 
 const Vs = styled.span`
     font-weight: 600;
     color: var(--accent);
-    font-size: 55px;
+    font-size: var(--fs-large);
     @media (max-width: 768px) {
-        font-size: 50px;
+        font-size: var(--fs-large);
     }
 `
 

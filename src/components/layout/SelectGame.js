@@ -56,10 +56,14 @@ const SelectGame = ({ onSelect, currentGameId }) => {
 }
 
 const SelectContainer = styled.div`
+    margin-top: 10vh;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    overflow: scroll;
 
     &.${props => props.transitionName}-enter {
         opacity: 0;
@@ -82,7 +86,7 @@ const SelectContainer = styled.div`
 `
 
 const TitleText = styled.div`
-    font-size: 20px;
+    font-size: var(--fs-small);
 `
 
 const SpinnerContainer = styled.div`
@@ -103,17 +107,14 @@ const GlassContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
 
+    overflow: scroll;
 
+    // height: 60vh;
     width: 40vw;
     @media (max-width: 768px) {
         width: 90vw;
     }
     margin: 10px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
