@@ -89,10 +89,10 @@ const GlassContainer = styled.div`
     width: 40vw;
     height: calc(65vh + 20px);
     @media (max-width: 768px) {
-        width: 90vw;
+        width: 75vw;
     }
     margin: 10px;
-    margin-right: 0px;
+    // margin-right: 0px;
 
     display: flex;
     flex-direction: column;

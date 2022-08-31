@@ -129,7 +129,7 @@ const GameDisplay = ({ handleBack }) => {
 
     return(
         <GameDisplayContainer transitionName={"content"}>
-            <GameNav style={{ justifyContent: 'space-between', width: '100%' }}>
+            <GameNav style={{ justifyContent: 'space-between', width: '95%' }}>
                 <BackToGames onClick={handleBack}>
                     <BackButton>{"<"}</BackButton>
                     <BackText>back to games</BackText>
@@ -198,6 +198,7 @@ const GameNav = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-right: 10px;
 
     @media (max-width: 768px) {
         flex-direction: column;

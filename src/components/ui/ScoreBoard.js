@@ -41,7 +41,10 @@ const SpinnerContainer = styled.div`
 
 const GlassContainer = styled.div`
     width: 40vw;
-    height: 25vh;
+    @media (min-width: 768px) {
+        height: 25vh;
+    }
+    
     @media (max-width: 768px) {
         width: 75vw;
     }
@@ -86,8 +89,9 @@ const NameText = styled.div`
 
 const ScoreText = styled.div`
     font-weight: 700;
-    font-size: var(--fs-medium);
+    font-size: var(--fs-large);
     // color: var(--accent);
+    // text-shadow: 1px 1px 1px 1px black;
 `
 
 export default ScoreBoard;

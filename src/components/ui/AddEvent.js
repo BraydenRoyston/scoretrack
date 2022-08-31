@@ -94,7 +94,10 @@ const SpinnerContainer = styled.div`
 
 const GlassContainer = styled.div`
     width: 40vw;
-    height: 40vh;
+    
+    @media (min-width: 768px) {
+        height: 40vh;
+    }
     @media (max-width: 768px) {
         width: 75vw;
     }

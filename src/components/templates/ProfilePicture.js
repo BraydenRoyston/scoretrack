@@ -6,7 +6,7 @@ const ProfilePicture = styled.img`
     border: 2px solid var(--black);
 
     @media (max-width: 768px) {
-        width: 45px;
+        width: 60px;
     }
 `
 
