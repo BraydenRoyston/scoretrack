@@ -15,6 +15,7 @@ const GlassContainer = styled.div`
     height: 25vh;
     @media (max-width: 768px) {
         width: 90vw;
+        margin-top: 15vh;
     }
     margin: 10px;
 
