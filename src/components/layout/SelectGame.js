@@ -67,6 +67,12 @@ const SelectContainer = styled.div`
     align-items: center;
 
     overflow: scroll;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none;  /* Safari and Chrome */
+    }
 
     &.${props => props.transitionName}-enter {
         opacity: 0;
@@ -124,6 +130,13 @@ const GlassContainer = styled.div`
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 12px;
     border: 1px solid rgba(209, 213, 219, 0.3);
+
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none;  /* Safari and Chrome */
+    }
 `
 
 export default SelectGame;

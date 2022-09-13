@@ -191,6 +191,13 @@ const GameDisplayContainer = styled.div`
           transform: scale(0.9);
           transition: opacity 0ms, transform 0ms;
       }
+
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none;  /* Safari and Chrome */
+    }
 `
 
 const GameNav = styled.div`

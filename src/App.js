@@ -123,6 +123,13 @@ const OuterContainer = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+
+  &::-webkit-scrollbar {
+      display: none;  /* Safari and Chrome */
+  }
 `
 
 const AppContainer = styled.div`
@@ -142,12 +149,25 @@ const AppContainer = styled.div`
   position: relative;
 
   // background-color: var(--bg);
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none;  /* Safari and Chrome */
+    }
 `
 
 const BottomText = styled.div`
   font-size: var(--fs-extra-small);
   text-align: center;
   color: var(--accent);
+
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+
+  &::-webkit-scrollbar {
+      display: none;  /* Safari and Chrome */
+  }
 `
 
 export default App;
