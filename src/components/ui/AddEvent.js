@@ -36,6 +36,11 @@ const AddEvent = ({ addEventLoading, handleEventSubmit, playersLoading, playerLi
     }, [playerList])
 
     const submitCallback = () => {
+        if (isNaN(parseInt(eventPoints))) {
+            alert("Error: the point value was not a number!");
+            return;
+        }
+
         handleEventSubmit({
             activityName: eventName,
             winnerId: eventWinnerId,
@@ -44,6 +49,7 @@ const AddEvent = ({ addEventLoading, handleEventSubmit, playersLoading, playerLi
             date: Date.now()
         })
     }
+
     if (!playersLoading) {
         return(
             <GlassContainer>

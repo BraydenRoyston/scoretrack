@@ -13,26 +13,27 @@ const EventList = ({ eventsLoading, eventList, handleEventDelete, deleteLoading 
                 </SpinnerContainer>
             </GlassContainer>
         );
+    } else {
+        return(
+            <GlassContainer>
+                {!eventsLoading ? eventList.length == 0 ? <SectionText>no events yet, add one by clicking "add a new event"!</SectionText>
+                : eventList.map((gameEvent) => {
+                    return(
+                        <Event key={gameEvent.id}>
+                            <VerticalContainer style={{width: '100%'}}>
+                                <GameName>{gameEvent.data.activityName}</GameName>
+                                <HorizontalContainer>
+                                    <Highlight>{gameEvent.data.pointValue} points for {gameEvent.data.winnerName.split(" ")[0]}</Highlight>
+                                </HorizontalContainer>
+                            </VerticalContainer>
+                            <Button onClick={() => handleEventDelete(gameEvent.id)}>{deleteLoading == gameEvent.id ? <Spinner /> :"delete"}</Button>
+                        </Event>
+                    );
+                })
+                : <Spinner />}
+            </GlassContainer>
+        );
     }
-    return(
-        <GlassContainer>
-            {!eventsLoading ? eventList.length == 0 ? <SectionText>no events yet, add one by clicking "add a new event"!</SectionText>
-            : eventList.map((gameEvent) => {
-                return(
-                    <Event key={gameEvent.id}>
-                        <VerticalContainer style={{width: '100%'}}>
-                            <GameName>{gameEvent.data.activityName}</GameName>
-                            <HorizontalContainer>
-                                <Highlight>{gameEvent.data.pointValue} points for {gameEvent.data.winnerName.split(" ")[0]}</Highlight>
-                            </HorizontalContainer>
-                        </VerticalContainer>
-                        <Button onClick={() => handleEventDelete(gameEvent.id)}>{deleteLoading == gameEvent.id ? <Spinner /> :"delete"}</Button>
-                    </Event>
-                );
-            })
-            : <Spinner />}
-        </GlassContainer>
-    );
 }
 
 const SpinnerContainer = styled.div`
